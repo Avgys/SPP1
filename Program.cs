@@ -1,5 +1,7 @@
 ﻿using System;
 using TracerNS;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace SPP1
 {
@@ -18,8 +20,8 @@ namespace SPP1
         {
             _tracer.StartTrace();
             
-            _bar.InnerMethod();
-           
+            _bar.InnerMethod();            
+            
             _tracer.StopTrace();
         }
     }
@@ -36,7 +38,15 @@ namespace SPP1
         public void InnerMethod()
         {
             _tracer.StartTrace();
-           
+
+            long temp = 1;
+            for (long i = 2; i < 10; i++)
+            {
+                temp *= i;
+            }
+
+            Thread.Sleep(10);     
+
             _tracer.StopTrace();
         }
     }
@@ -45,7 +55,14 @@ namespace SPP1
     {
         static void Main(string[] args)
         {
-            
+            Tracer tracer = new Tracer();
+            Foo foo = new Foo(tracer);
+            foo.MyMethod();
+            foo.MyMethod();
+
+            var temp = tracer.GetTraceResult();
+
+
             Console.WriteLine("Hello World!");
         }
     }

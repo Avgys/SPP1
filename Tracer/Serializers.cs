@@ -10,6 +10,7 @@ namespace TracerNS
     using System.IO;
     using System.Text.Json;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     public  interface ISerializer
     {
@@ -22,7 +23,8 @@ namespace TracerNS
 
         public void Serialize(System.IO.Stream serializationStream, TraceResult root)
         {
-            string jsonString = JsonSerializer.Serialize(root, typeof(TraceResult));
+            //string jsonString = JsonSerializer.Serialize(root, typeof(TraceResult));
+            string jsonString = JsonConvert.SerializeObject(root, Formatting.Indented);
             //jsonString = jsonString.Replace("[", "\n[");
             //jsonString = jsonString.Replace("]", "\n]");
             //jsonString = jsonString.Replace("{", "\n{");
@@ -51,7 +53,8 @@ namespace TracerNS
 
     public class Entry
     {
-        public int Key { get; set; }
+        [XmlAttribute]
+        public int ThreadId { get; set; }
         [XmlElement(ElementName = "Thread")]
         //[XmlInclude(typeof(ThreadInfo))]
         public ThreadInfo Value { get; set; }
@@ -61,7 +64,7 @@ namespace TracerNS
 
         public Entry(int key, ThreadInfo value)
         {
-            Key = key;
+            ThreadId = key;
             Value = value;
         }
     }

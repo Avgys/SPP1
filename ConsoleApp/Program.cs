@@ -59,31 +59,37 @@ namespace SPP1
             Tracer tracer = new Tracer();
             Foo foo = new Foo(tracer);
             foo.MyMethod();
-            //foo.MyMethod();
-            
+            foo.MyMethod();
+
+            var foo2 = new Foo(tracer);
+            Thread thread = new Thread(new ThreadStart(foo.MyMethod));
+            int id2 = thread.ManagedThreadId;
+            thread.Start();
+            thread.Join();
+
             var root = tracer.GetTraceResult();
 
+
+            var consoleStream = Console.OpenStandardOutput();
+
+            SerializerInJson ser = new SerializerInJson();
+            ser.Serialize(consoleStream, root);
+
+            using (FileStream fs = new FileStream("test.json", FileMode.OpenOrCreate))
+            {
+                ser.Serialize(fs, root);
+            }
+
+            Console.WriteLine("\n");
+
+            SerializerInXml serXml = new SerializerInXml();
             
+            serXml.Serialize(consoleStream, root);
 
-            //SerializerInJson ser = new SerializerInJson();
-            //ser.Serialize(Console.OpenStandardOutput(), root);
-
-            //using (FileStream fs = new FileStream("test.json", FileMode.OpenOrCreate))
-            //{
-            //    ser.Serialize(fs, root);
-            //}
-
-            //SerializerInXml serXml = new SerializerInXml();
-            //Console.WriteLine();
-            //serXml.Serialize(Console.OpenStandardOutput(), root);
-
-            //using (FileStream fs = new FileStream("test.xml", FileMode.OpenOrCreate))
-            //{
-            //    serXml.Serialize(fs, root);
-            //}
-
-            //Stream stream = Console.OpenStandardOutput();
-
+            using (FileStream fs = new FileStream("test.xml", FileMode.OpenOrCreate))
+            {
+                serXml.Serialize(fs, root);
+            }
 
         }
     }

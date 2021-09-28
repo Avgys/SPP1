@@ -28,13 +28,15 @@ namespace TracerNS
         public long timeInterval { get; set; }
 
         [JsonInclude]
+        [XmlAttribute]
         public string className {  get; set; }
         [JsonInclude]
+        [XmlAttribute]
         public string methodName {  get; set; }
 
-        [JsonIgnore]
         [XmlIgnore]
-        public MethodInfo parentMethod { get; private set; }
+        [JsonIgnore]
+        internal MethodInfo parentMethod;
 
         public List<MethodInfo> methods { get; private set; }
 
@@ -76,7 +78,8 @@ namespace TracerNS
     {
         
         private Stopwatch stopwatch;
-        [XmlElement(ElementName = "time")]
+        //[XmlElement(ElementName = "time")]
+        [XmlAttribute(AttributeName = "time")]
         public long timeInterval { get; set; }
 
         [XmlElement(ElementName = "methods")]

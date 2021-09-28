@@ -14,7 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SPP1\SPP1.csproj" />
+    <ProjectReference Include="..\ConsoleApp\SPP1.csproj" />
+    <ProjectReference Include="..\Tracer\Tracer.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Threading;
-using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace TracerNS
 {
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Diagnostics;
     using System.Text.Json.Serialization;
     using System.Xml;
     using System.Xml.Serialization;
@@ -192,7 +192,7 @@ namespace TracerNS
 
             st = new StackTrace(false);
             string typeName = st.GetFrame(1).GetMethod().DeclaringType.Name;
-            string methodName = st.GetFrame(1).GetMethod().ToString();
+            string methodName = st.GetFrame(1).GetMethod().Name;
             MethodInfo mInfo = new MethodInfo(typeName, methodName, currentMethod);
             mInfo.StartTimer();
             if (currentMethod == null)

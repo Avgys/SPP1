@@ -11,7 +11,7 @@ namespace SPP1
         private Bar _bar;
         private ITracer _tracer;
 
-        internal Foo(ITracer tracer)
+        public Foo(ITracer tracer)
         {
             _tracer = tracer;
             _bar = new Bar(_tracer);
@@ -31,7 +31,7 @@ namespace SPP1
     {
         private ITracer _tracer;
 
-        internal Bar(ITracer tracer)
+        public Bar(ITracer tracer)
         {
             _tracer = tracer;
         }
@@ -65,22 +65,23 @@ namespace SPP1
 
             
 
-            SerializerInJson ser = new SerializerInJson();
-            ser.Serialize(Console.OpenStandardOutput(), root);
+            //SerializerInJson ser = new SerializerInJson();
+            //ser.Serialize(Console.OpenStandardOutput(), root);
 
-            using (FileStream fs = new FileStream("test.json", FileMode.OpenOrCreate))
-            {
-                ser.Serialize(fs, root);
-            }
+            //using (FileStream fs = new FileStream("test.json", FileMode.OpenOrCreate))
+            //{
+            //    ser.Serialize(fs, root);
+            //}
 
-            SerializerInXml serXml = new SerializerInXml();
-            Console.WriteLine();
-            serXml.Serialize(Console.OpenStandardOutput(), root);
+            //SerializerInXml serXml = new SerializerInXml();
+            //Console.WriteLine();
+            //serXml.Serialize(Console.OpenStandardOutput(), root);
 
-            using (FileStream fs = new FileStream("test.xml", FileMode.OpenOrCreate))
-            {
-                serXml.Serialize(fs, root);
-            }
+            //using (FileStream fs = new FileStream("test.xml", FileMode.OpenOrCreate))
+            //{
+            //    serXml.Serialize(fs, root);
+            //}
+
             //Stream stream = Console.OpenStandardOutput();
 
 
